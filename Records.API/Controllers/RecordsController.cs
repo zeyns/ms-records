@@ -6,7 +6,7 @@ using Records.Domain.DTOs;
 namespace Records.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("records")]
 public class RecordsController(ICreateRecordUseCase createRecordUseCase) : ControllerBase
 {
     private readonly ICreateRecordUseCase _createRecordUseCase = createRecordUseCase;

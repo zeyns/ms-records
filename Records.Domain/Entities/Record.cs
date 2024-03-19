@@ -1,7 +1,7 @@
 ﻿namespace Records.Domain.Entities;
 
-public class Record(Guid userId, DateTime recordDate) : Entity
+public class Record(Guid userId, DateTime recordDate) 
 {
-    public Guid userId { get; set; } = userId;
-    public DateTime recordDate { get; set; } = recordDate;   
+    public Guid UserId { get; set; } = userId;
+    public DateTime RecordDate { get; set; } = recordDate;   
 }

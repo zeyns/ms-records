@@ -11,6 +11,6 @@ public class CreateRecordUseCase(IRecordsRepository RecordsRepository) : ICreate
 
     public DateTime? Execute(RecordDTO dto)
     {
-        return _RecordsRepository.Create(dto.userId);
+        return _RecordsRepository.Create(dto.UserId);
     }
 }

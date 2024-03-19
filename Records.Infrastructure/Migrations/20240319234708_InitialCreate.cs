@@ -20,14 +20,15 @@ namespace Records.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Record", x => x.Id);
+                    table.PrimaryKey("PK_Record", x => new { x.UserId, x.RecordDate });
                 });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTablename: "Record");
+            migrationBuilder.DropTable(
+                name: "Record");
         }
     }
 }

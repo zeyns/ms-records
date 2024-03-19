@@ -4,14 +4,11 @@ using Records.Domain.Interfaces;
 using Records.Infrastructure.Contexts;
 using Records.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRecordsRepository, RecordsRepository>();
 builder.Services.AddScoped<ICreateRecordUseCase, CreateRecordUseCase>();
-builder.Services.AddScoped<IGetRecordByDocumentUseCase, GetRecordByDocumentUseCase>();
-builder.Services.AddScoped<IGetRecordByRecordIdUseCase, GetRecordByRecordIdUseCase>();
-builder.Services.AddScoped<IGetRecordsUseCase, GetRecordsUseCase>();
-builder.Services.AddScoped<IDeleteRecordUseCase, DeleteRecordUseCase>();
 builder.Services.AddDbContext<RecordsContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -10,9 +10,9 @@ public class RecordsRepository(RecordsContext context) : IRecordsRepository
 
     public DateTime Create(Guid userId)
     {
-        var Record = new Record(dto.userId, utcNow);
+        var Record = new Record(userId, DateTime.UtcNow);
         _context.Record.Add(Record);
         _context.SaveChanges();
-        return Record.recordDate;
+        return Record.RecordDate;
     }
 }
