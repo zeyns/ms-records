@@ -1,10 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Records.API.Middlewares;
 using Records.Application.Interfaces.Records;
 using Records.Application.UseCases.Records;
 using Records.Domain.Interfaces;
 using Records.Infrastructure.Contexts;
 using Records.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRecordsRepository, RecordsRepository>();
@@ -23,7 +23,7 @@ using (var scope = app.Services.CreateScope())
 }
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseAuthorization();
 app.MapControllers();
+app.UseMiddleware<AuthMiddleware>();
 app.Run();
 
