@@ -1,6 +1,5 @@
 ﻿using Records.Application.Interfaces.Records;
 using Records.Domain.DTOs;
-using Records.Domain.Entities;
 using Records.Domain.Interfaces;
 
 namespace Records.Application.UseCases.Records;
