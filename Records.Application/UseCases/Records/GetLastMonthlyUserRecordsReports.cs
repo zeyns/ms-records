@@ -46,9 +46,4 @@ public class GetLastMonthlyUserRecordsReports(IRecordsRepository RecordsReposito
         return Math.Round(workedHours, 2);
 
     }
-
-
-
-
-
 }
