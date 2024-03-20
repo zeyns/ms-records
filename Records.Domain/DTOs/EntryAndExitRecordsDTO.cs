@@ -2,6 +2,6 @@
 
 public class EntryAndExitRecordsDTO
 {
-    public DateTime Entry { get; set; }
-    public DateTime Exit { get; set; }
+    public DateTime? Entry { get; set; }
+    public DateTime? Exit { get; set; }
 }
