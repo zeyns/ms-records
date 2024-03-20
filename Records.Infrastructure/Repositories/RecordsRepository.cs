@@ -1,8 +1,6 @@
 ﻿using Records.Domain.Entities;
 using Records.Domain.Interfaces;
 using Records.Infrastructure.Contexts;
-using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Records.Infrastructure.Repositories;
 public class RecordsRepository(RecordsContext context) : IRecordsRepository
@@ -17,7 +15,7 @@ public class RecordsRepository(RecordsContext context) : IRecordsRepository
         return Record.RecordDate;
     }
 
- 
+
     public List<Record> GetAllByUserIdAndDate(Guid userId, DateOnly date)
     {
         DateTime startDateTime = date.ToDateTime(TimeOnly.Parse("12:00 AM"));
