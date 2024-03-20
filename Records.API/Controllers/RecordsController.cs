@@ -29,7 +29,7 @@ public class RecordsController(ICreateRecordUseCase createRecordUseCase,
     [HttpGet("user/{userId:guid}/summary")]
     public IActionResult GetDateInfoRecords(Guid userId, [FromQuery][Required] DateOnly date)
     {
-        var dayInfoRecords = _getDateUserRecordsInfoUseCase.Execute(userId, date);
+            var dayInfoRecords = _getDateUserRecordsInfoUseCase.Execute(userId, date);
         return Ok(dayInfoRecords);
     }
 
