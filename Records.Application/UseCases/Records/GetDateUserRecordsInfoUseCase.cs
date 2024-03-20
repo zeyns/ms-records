@@ -5,13 +5,13 @@ using Records.Domain.Interfaces;
 
 namespace Records.Application.UseCases.Records;
 
-public class GetDailyInfoRecordsUseCase(IRecordsRepository RecordsRepository) : IGetDateRecordsInfoUseCase
+public class GetDateUserRecordsInfoUseCase(IRecordsRepository RecordsRepository) : IGetDateUserRecordsInfoUseCase
 {
     private readonly IRecordsRepository _RecordsRepository = RecordsRepository;
 
     public DateRecordsInfoDTO Execute(DateOnly date)
     {
-        List<Record> dateRecords = _RecordsRepository.GetAllByDate(date);
+        List<Record> dateRecords = _RecordsRepository.GetAllByUserIdAndDate(Guid.Empty, date);
         DateRecordsInfoDTO dateRecordsInfoDTO = new DateRecordsInfoDTO();
         dateRecordsInfoDTO.Records = GetEntryAndExitRecords(dateRecords);
         dateRecordsInfoDTO.Intervals = GetEntryAndExitIntervalRecords(dateRecordsInfoDTO.Records);
@@ -52,7 +52,6 @@ public class GetDailyInfoRecordsUseCase(IRecordsRepository RecordsRepository) : 
     private Double GetWorkedHours(List<EntryAndExitRecordsDTO> entryAndExitRecords)
     {
         Double workedHours = 0d;
-        List<EntryAndExitRecordsDTO> entryAndExitIntervalRecords = new List<EntryAndExitRecordsDTO>();
         foreach(var entryAndExitRecord in entryAndExitRecords)
         {
             workedHours += (entryAndExitRecord.Exit ?? DateTime.UtcNow)

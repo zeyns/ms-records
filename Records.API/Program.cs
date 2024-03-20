@@ -9,7 +9,8 @@ using Records.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRecordsRepository, RecordsRepository>();
 builder.Services.AddScoped<ICreateRecordUseCase, CreateRecordUseCase>();
-builder.Services.AddScoped<IGetDateRecordsInfoUseCase, GetDailyInfoRecordsUseCase>();
+builder.Services.AddScoped<IGetDateUserRecordsInfoUseCase, GetDateUserRecordsInfoUseCase>();
+builder.Services.AddScoped<IGetLastMonthlyUserRecordsReports, GetLastMonthlyUserRecordsReports>();
 builder.Services.AddDbContext<RecordsContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
