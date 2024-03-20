@@ -45,7 +45,7 @@ public class RecordsControllerTests
         // Arrange
         var userId = Guid.NewGuid();
         var date = new DateOnly();
-        _getDateUserRecordsInfoUseCaseMock.Setup(x => x.Execute(date)).Returns(new DateRecordsInfoDTO());
+        _getDateUserRecordsInfoUseCaseMock.Setup(x => x.Execute(userId, date)).Returns(new DateRecordsInfoDTO());
 
         // Act
         var result = _controller.GetDateInfoRecords(userId, date) as OkObjectResult;

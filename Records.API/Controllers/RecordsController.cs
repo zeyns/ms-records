@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Records.Application.Interfaces.Records;
 using Records.Domain.DTOs;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace Records.API.Controllers;
@@ -25,14 +26,14 @@ public class RecordsController(ICreateRecordUseCase createRecordUseCase,
         return new ObjectResult(date.ToString()) { StatusCode = (int)HttpStatusCode.Created };
     }
 
-    [HttpGet("user/{userId}/summary")]
-    public IActionResult GetDateInfoRecords(Guid userId, [FromQuery] DateOnly date)
+    [HttpGet("user/{userId:guid}/summary")]
+    public IActionResult GetDateInfoRecords(Guid userId, [FromQuery][Required] DateOnly date)
     {
-        var dayInfoRecords = _getDateUserRecordsInfoUseCase.Execute(date);
+        var dayInfoRecords = _getDateUserRecordsInfoUseCase.Execute(userId, date);
         return Ok(dayInfoRecords);
     }
 
-    [HttpGet("user/{userId}/reports/last-monthly")]
+    [HttpGet("user/{userId:guid}/reports/last-monthly")]
     public IActionResult GetMonthlyUserRecordsReports(Guid userId)
     {
         var monthlyUserRecordsReports = _getLastMonthlyUserRecordsReports.Execute(userId);

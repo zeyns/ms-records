@@ -9,9 +9,9 @@ public class GetDateUserRecordsInfoUseCase(IRecordsRepository RecordsRepository)
 {
     private readonly IRecordsRepository _RecordsRepository = RecordsRepository;
 
-    public DateRecordsInfoDTO Execute(DateOnly date)
+    public DateRecordsInfoDTO Execute(Guid userId, DateOnly date)
     {
-        List<Record> dateRecords = _RecordsRepository.GetAllByUserIdAndDate(Guid.Empty, date);
+        List<Record> dateRecords = _RecordsRepository.GetAllByUserIdAndDate(userId, date);
         DateRecordsInfoDTO dateRecordsInfoDTO = new DateRecordsInfoDTO();
         dateRecordsInfoDTO.Records = GetEntryAndExitRecords(dateRecords);
         dateRecordsInfoDTO.Intervals = GetEntryAndExitIntervalRecords(dateRecordsInfoDTO.Records);
