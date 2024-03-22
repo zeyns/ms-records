@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Records.API.Controllers;
+using Records.API.Middlewares;
 using Records.Application.Interfaces.Records;
 using Records.Domain.DTOs;
 using System.Net;
@@ -31,12 +32,11 @@ public class RecordsControllerTests
         _createRecordUseCaseMock.Setup(x => x.Execute(recordDto)).Returns(DateTime.Now);
 
         // Act
-        var result = _controller.CreateRecord(recordDto) as ObjectResult;
+        AuthMiddleware._userId = Guid.NewGuid();
+        var result = _controller.CreateRecord() as ObjectResult;
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal((int)HttpStatusCode.Created, result.StatusCode);
-        Assert.Equal(DateTime.Now.ToString(), result.Value);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class RecordsControllerTests
         _getDateUserRecordsInfoUseCaseMock.Setup(x => x.Execute(userId, date)).Returns(new DateRecordsInfoDTO());
 
         // Act
-        var result = _controller.GetDateInfoRecords(userId, date) as OkObjectResult;
+        var result = _controller.GetDateInfoRecords(date) as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);

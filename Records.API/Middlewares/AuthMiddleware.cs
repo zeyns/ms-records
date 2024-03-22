@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 
 namespace Records.API.Middlewares;
 public class AuthMiddleware(RequestDelegate next, ILogger<AuthMiddleware> logger, IConfiguration configuration) 
@@ -7,6 +8,7 @@ public class AuthMiddleware(RequestDelegate next, ILogger<AuthMiddleware> logger
     private readonly ILogger<AuthMiddleware> _logger = logger;
     private readonly HttpClient _httpClient = new ();
     private readonly IConfiguration _configuration = configuration;
+    public static Guid _userId;
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -32,6 +34,10 @@ public class AuthMiddleware(RequestDelegate next, ILogger<AuthMiddleware> logger
                     await context.Response.WriteAsync("Invalid or expired token");
                     return;
                 }
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                var userId = jwtToken.Claims.FirstOrDefault().Value;
+                _userId = Guid.Parse(userId.ToString());
             }
             catch (Exception ex)
             {
