@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Records.API.Middlewares;
 using Records.Application.Interfaces.Records;
 using Records.Domain.DTOs;
 using System.ComponentModel.DataAnnotations;
@@ -20,16 +21,18 @@ public class RecordsController(ICreateRecordUseCase createRecordUseCase,
     private readonly IGetLastMonthlyUserRecordsReports _getLastMonthlyUserRecordsReports = getLastMonthlyUserRecordsReports;
 
     [HttpPost]
-    public IActionResult CreateRecord([FromBody] RecordDTO dto)
+    public IActionResult CreateRecord()
     {
+        var dto = new RecordDTO { UserId = AuthMiddleware._userId };
         var date = _createRecordUseCase.Execute(dto);
         return new ObjectResult(date.ToString()) { StatusCode = (int)HttpStatusCode.Created };
     }
 
-    [HttpGet("user/{userId:guid}/summary")]
-    public IActionResult GetDateInfoRecords(Guid userId, [FromQuery][Required] DateOnly date)
+    [HttpGet("user/summary")]
+    public IActionResult GetDateInfoRecords([FromQuery][Required] DateOnly date)
     {
-            var dayInfoRecords = _getDateUserRecordsInfoUseCase.Execute(userId, date);
+        Guid userId = AuthMiddleware._userId;
+        var dayInfoRecords = _getDateUserRecordsInfoUseCase.Execute(userId, date);
         return Ok(dayInfoRecords);
     }
 
