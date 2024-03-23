@@ -13,4 +13,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /App
 COPY --from=build-env /App/out .
 EXPOSE 80
+ENV TZ="America/Sao_Paulo"
 ENTRYPOINT ["dotnet", "Records.API.dll"]

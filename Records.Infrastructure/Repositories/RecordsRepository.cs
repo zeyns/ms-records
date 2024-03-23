@@ -9,7 +9,7 @@ public class RecordsRepository(RecordsContext context) : IRecordsRepository
 
     public DateTime Create(Guid userId)
     {
-        var Record = new Record(userId, DateTime.UtcNow);
+        var Record = new Record(userId, DateTime.Now);
         _context.Record.Add(Record);
         _context.SaveChanges();
         return Record.RecordDate;
